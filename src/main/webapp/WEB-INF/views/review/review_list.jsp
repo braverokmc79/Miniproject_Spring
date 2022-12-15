@@ -25,7 +25,7 @@
 	font-family: 휴먼옛체, 굴림체, 궁서체;
 	font-size: 28px;
 	font-weight: bold;
-	color: green;
+	color: #337ab7;
 	text-shadow: 1px 1px 3px black;
 }
 
@@ -38,6 +38,7 @@
 	color: black;
 	overflow: hidden;
 }
+
 </style>
 
 <script type="text/javascript">

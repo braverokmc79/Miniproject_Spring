@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="URL" value="${pageContext.request.requestURL}" />  
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/images/style.css">
   
 <!-- Fixed navbar -->
@@ -17,9 +19,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-           <li><a href="${pageContext.request.contextPath}/cinema/list.do" class="menu-a">영화목록</a></li>    
+           <li class="${fn:contains(URL, 'cinema')? 'active':''}" ><a href="${pageContext.request.contextPath}/cinema/list.do" class="menu-a">영화목록</a></li>    
  		   <c:if test="${not empty sessionScope.user}">
- 			<li class="active">
+ 			<li class="${fn:contains(URL, 'member')? 'active':''}">
  				<a href="${pageContext.request.contextPath}/member/list.do" class="menu-a">
           			${ user.m_grade eq '관리자' ? '회원목록':'회원정보' }</a>
           	</li>

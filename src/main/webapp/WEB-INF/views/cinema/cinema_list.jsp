@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <style type="text/css">
 #box {
 	width: 1200px;
@@ -18,7 +20,7 @@
 }
 #title {
 	text-align: center;
-	color: green;
+	color: #337ab7;
 	font-weight: bold;
 	text-shadow: 1px 1px 2px black;
 }
@@ -31,12 +33,30 @@
 
 #cinema_box {
 	width: 100%;
-	height: 470px;
-	border: 2px solid blue;
+	height: 500px;
+	border: 5px solid #2b56be;
 	overflow-y: scroll;
 	margin-top: 10px;
+	overflow-x:hidden;
 }
 
+#cinema_box::-webkit-scrollbar {
+   width: 10px;
+}
+#cinema_box::-webkit-scrollbar-thumb {
+   background-color: #2b56be;
+   border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+#cinema_box::-webkit-scrollbar-track {
+   background-color: grey;
+   border-radius: 10px;
+   box-shadow: inset 0px 0px 5px white;
+}
+ 
+ 
+ 
 .cinema {
 	width: 140px;
 	height: 180px;
@@ -177,22 +197,6 @@
 
 	<div id="box">
 		<h1 id="title">영화 목록</h1>
-		<div style="text-align: right; display: none;">
-			<!-- 로그인이 안된경우  -->
-			<c:if test="${ empty sessionScope.user }">
-				<input class="btn  btn-primary" type="button" value="로그인" onclick="location.href='../member/login_form.do';">
-
-				<input class="btn  btn-primary" type="button" value="회원가입" onclick="location.href='../member/insert_form.do';">
-			</c:if>
-
-			<!-- 로그인이 된경우  -->
-			<c:if test="${ not empty sessionScope.user }">
-				<b>${ user.m_name }님</b> 환영합니다.
-           <input class="btn  btn-primary" type="button" value="로그아웃" onclick="location.href='../member/logout.do';">
-			</c:if>
-
-		</div>
-
 
 		<c:if test="${ user.m_grade eq '관리자' }">
 			<div style="float: right; margin-bottom: 20px">
@@ -200,8 +204,8 @@
 			</div>
 		</c:if>
 
-		<div id="cinema_box">
 
+		<div id="cinema_box">
 			<!-- 데이터가 없는경우 -->
 			<c:if test="${ empty list }">
 				<div id="empty_msg">영화정보가 없습니다</div>
@@ -209,14 +213,40 @@
 
 			<!-- 데이터가 있는경우 -->
 			<!-- for(CinemaVo vo : list) -->
-			<c:forEach var="vo" items="${ list }">
+<%-- 			<c:forEach var="vo" items="${ list }">
 				<div class="cinema">
 					<img src="../resources/upload/${ vo.c_filename }" onclick="cinema_view('${ vo.c_idx }');">
 					<div class="cinema_class">${ vo.c_subject }</div>
 				</div>
-			</c:forEach>
-
+			</c:forEach> --%>
+			
+			
+			<div class="list con">
+				<ul class="row">				  
+				  <c:if test="${empty list}">
+				  		<li class="no-data"><h3>데이터가 없습니다</h3><li>
+				  </c:if>
+					<c:forEach items="${list}" var="row" varStatus="status">
+						<li  class="cell ${status.index %5 ==0? 'on':''}  ${(status.count%5==0) ? 'on3':'' }" >
+						
+							<div class="img-box">
+								<img src="../resources/upload/${row.c_filename}" onclick="cinema_view('${row.c_idx}');" style="height:125px">												
+							</div>
+							
+							<div class="product-name">${row.c_subject}</div>															
+						</li>																	
+				  </c:forEach>						
+				</ul>
+			</div>
+			
 		</div>
+						
+				
+				
+				
+
+					
+		
 
 	</div>
 
