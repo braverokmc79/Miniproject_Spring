@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ict.minispring.dao.CinemaDao;
+import com.ict.minispring.util.PageMaker;
 import com.ict.minispring.vo.CinemaVo;
 import com.ict.minispring.vo.MemberVo;
 
@@ -39,9 +41,16 @@ public class CinemaController {
 	 * @return
 	 */
 	@RequestMapping("list.do")
-	public String list(Model model) throws Exception{
-		List<CinemaVo> list = cinema_dao.selectList();		
-		model.addAttribute("list", list);		
+	public String list(PageMaker pageMaker,HttpServletRequest request, Model model) throws Exception{
+		int totCount=cinema_dao.getTotCount();
+		pageMaker.setPerPageNum(15);
+		pageMaker.setTotPage(totCount);
+		List<CinemaVo> list = cinema_dao.selectList(pageMaker);	
+		String pagination=pageMaker.bootStrapPagingHTML(request.getContextPath()+"/cinema/list.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totCount", totCount);
+		model.addAttribute("pagination", pagination);	
 		return "cinema/cinema_list";
 	}
 	

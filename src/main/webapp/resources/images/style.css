@@ -107,6 +107,7 @@
 .pagination li a:hover , .pagination li.active a {
     background-color: #337ab7;
     color: #ffffff;
+    border: 1px;
 }
 
 .pagination>li>a, .pagination>li>span {

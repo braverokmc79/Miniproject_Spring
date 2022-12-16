@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ict.minispring.util.PageMaker;
 import com.ict.minispring.vo.CinemaVo;
 
 @Repository
@@ -14,13 +15,14 @@ public class CinemaDaoImpl implements CinemaDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public void setSqlSession(SqlSession sqlSession)  throws Exception{
-		this.sqlSession = sqlSession;
-	}
-
 	@Override
-	public List<CinemaVo> selectList()  throws Exception{
-		return sqlSession.selectList("cinema.cinema_list");
+	public int getTotCount() throws Exception {
+		return sqlSession.selectOne("cinema.getTotCount");
+	}
+	
+	@Override
+	public List<CinemaVo> selectList(PageMaker pageMaker)  throws Exception{
+		return sqlSession.selectList("cinema.cinema_list", pageMaker);
 	}
 
 	@Override
@@ -49,5 +51,7 @@ public class CinemaDaoImpl implements CinemaDao {
 	public int update_filename(CinemaVo vo)  throws Exception{
 		return sqlSession.update("cinema.cinema_update_filename", vo);
 	}
+
+	
 
 }

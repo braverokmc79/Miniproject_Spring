@@ -156,8 +156,9 @@
 			</select> 
 			<span style="display: none;">${param.search_text}</span>
 			
-			<input type="search"	 id="search_text" value="${param.search_text}" class="form-control" style="display: inline; width: 200px"> 
-			<input type="button" value="검색" onclick="search();" onkeyup="if(window.event.keyCode==13){enterup()}"
+			<input type="search"	 id="search_text" 
+			value="${param.search_text}" class="form-control" style="display: inline; width: 200px"> 
+			<input type="button" value="검색" onclick="search();"  class="submit"
 				style="display: inline; width: 50px" class="btn btn-info">
 		</div>
 		
@@ -170,7 +171,8 @@
 				<input type="hidden" name="r_idx" value="${vo.r_idx}">
 				<div class="panel panel-primary" style="position: relative;">					
 					<div class="panel-heading" style="display: flex; justify-content: space-between;">
-						<div class="subject"><h4 style="font-size: 15px">${ vo.r_subject}<small style="color: #fff"> (평점: ${ vo.r_score } 점)</small>						
+						<div class="subject"><h4 style="font-size: 15px">${ vo.r_subject}
+						<span style="color: #fff"> (평점: ${ vo.r_score } 점)</span>						
 						</h4></div>
 						<div>
 							<div id="m_nickname"><b>${vo.m_nickname}</b> 님의 리뷰 </div>	
@@ -188,8 +190,8 @@
 					<c:choose>
 						<c:when test="${user.m_grade eq '관리자'}">
 							<div style="text-align: right;margin-bottom: 29;display: inline;position: absolute;top: 65px;right: 17px">											
-								<input class="btn btn-info btn-sm" type="button" value="수정하기" onclick="modify_form();">
-								<input class="btn btn-danger btn-sm" type="button" value="삭제하기" onclick="del();">
+								<input class="btn btn-info btn-sm" type="button" value="수정하기" onclick="modify_form(`${vo.r_idx}`);">
+								<input class="btn btn-danger btn-sm" type="button" value="삭제하기" onclick="del(`${vo.r_idx}`);">
 						    </div>								
 						</c:when>
 						<c:when test="${user.m_idx eq vo.m_idx}">
@@ -210,5 +212,16 @@
 	</div>
 	
 	<div style="margin-bottom: 100px">&nbsp;</div>
+	
+	
+<script>
+$(function(){
+	$("#search_text").on("keyup",function(e){
+		if (window.event.keyCode==13) {		
+	    	$(".submit").click();
+	    }
+	})
+})
+</script> 	
 </body>
 </html>

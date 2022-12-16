@@ -56,7 +56,9 @@
 }
  
  
- 
+.pagination li a:hover, .pagination li.active a {
+  border: 1px
+}
 .cinema {
 	width: 140px;
 	height: 180px;
@@ -195,7 +197,7 @@
 	<!-- popup추가  -->
 	<%@include file="cinema_popup.jsp"%>
 
-	<div id="box">
+	<div id="box" style="margin-bottom: 20px">
 		<h1 id="title">영화 목록</h1>
 
 		<c:if test="${ user.m_grade eq '관리자' }">
@@ -212,14 +214,7 @@
 			</c:if>
 
 			<!-- 데이터가 있는경우 -->
-			<!-- for(CinemaVo vo : list) -->
-<%-- 			<c:forEach var="vo" items="${ list }">
-				<div class="cinema">
-					<img src="../resources/upload/${ vo.c_filename }" onclick="cinema_view('${ vo.c_idx }');">
-					<div class="cinema_class">${ vo.c_subject }</div>
-				</div>
-			</c:forEach> --%>
-			
+	
 			
 			<div class="list con">
 				<ul class="row">				  
@@ -233,16 +228,22 @@
 								<img src="../resources/upload/${row.c_filename}" onclick="cinema_view('${row.c_idx}');" style="height:125px">												
 							</div>
 							
-							<div class="product-name">${row.c_subject}</div>															
+							<div class="product-name" style="position:releative;">${row.c_subject}
+							 <span style="position: absolute;right: 15px;" title="리뷰">
+							 <i class="fa fa-comments"></i> ${row.review_cnt}</span>
+							</div>															
 						</li>																	
 				  </c:forEach>						
 				</ul>
 			</div>
 			
+			
 		</div>
-						
-				
-				
+		<div style="margin-bottom: 100px;" class="text-center">	
+				<c:if test="${totCount>15}">
+					${pagination}			
+				</c:if>							
+		</div>	
 				
 
 					
