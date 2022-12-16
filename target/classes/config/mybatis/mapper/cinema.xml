@@ -55,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    c_subject =#{ c_subject },
 			    c_info    =#{ c_info },			 
 			    c_regdate =sysdate
+			    where c_idx=#{ c_idx }
 	</update>
 	
 	<!-- 사진 이름 수정 -->

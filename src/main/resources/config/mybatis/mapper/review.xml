@@ -38,7 +38,8 @@
 		select * from (
 			select rownum as rn , A.* FROM
 			(
-			select * from review r
+
+			SELECT r.*, m.M_NAME , m.M_NICKNAME , m.M_GRADE , m.M_DELETE   FROM review r				
 			INNER JOIN "MEMBER" m on r.m_idx=m.M_IDX
 			WHERE c_idx=#{c_idx} 
 			
