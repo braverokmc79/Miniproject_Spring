@@ -55,10 +55,10 @@ public class Paging {
 			sb.append(startPage-1);
 			sb.append("&");
 			sb.append(search_filter);
-			sb.append("'>&laqu</a></li>");
+			sb.append("'>&laquo;</a></li>");
 		}
 		else
-		//	sb.append("<");
+			sb.append("<");
 		
 //------페이지 목록 출력-------------------------------------------------------------------------------------------------
 	
@@ -83,6 +83,7 @@ public class Paging {
 				sb.append("</a></li>");
 			}
 		}// end for
+
 		
 		//sb.append("&nbsp;|");
 		
@@ -92,7 +93,7 @@ public class Paging {
 			sb.append(endPage+1);			
 			sb.append("&");
 			sb.append(search_filter);			
-			sb.append("'>&raquo</a></li>");
+			sb.append("'>&raquo;</a></li>");
 		}
 		else
 		//	sb.append(">");
